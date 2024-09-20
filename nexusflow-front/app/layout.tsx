@@ -2,17 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/navbar/Navbar";
 
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
+
 const inter = Inter({ subsets:['latin']});
 
 export const metadata: Metadata = {
@@ -29,8 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={inter.className}
-      >
-        {children}
+      > 
+        <Navbar />
+        {/* bug check pt-32 any value gt 32 does not shift the content down <div className="pt-42 bg-gray-700"> */}
+        <div className="pt-32 ">
+          {children}
+        </div>
       </body>
     </html>
   );
