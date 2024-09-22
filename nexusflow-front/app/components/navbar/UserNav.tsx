@@ -3,12 +3,12 @@
 import { useState } from "react";
 import MenuLink from "./MenuLink";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import useSignupModal from "@/app/hooks/UseSignupModal";
+import useSignupModal from "@/app/hooks/useSignupModal";
 
 
 const UserNav = () => {
 
-    const [isOpen,setIsOpen] = useState(true)
+    const [isOpen,setIsOpen] = useState(false)
     const signupModal = useSignupModal();
     const loginModal = useLoginModal();
     return(

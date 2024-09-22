@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Modal from "./Modal"
 import CustomButton from "../forms/CustomButton"
-import useSignupModal from "@/app/hooks/UseSignupModal"
+import useSignupModal from "@/app/hooks/useSignupModal"
 
 const SignupModal = () =>{
     const signupModal = useSignupModal()

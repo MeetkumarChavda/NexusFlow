@@ -73,6 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+WEBSITE_URL='http://localhost:8000'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
