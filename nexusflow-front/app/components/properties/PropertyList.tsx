@@ -13,21 +13,12 @@ export type PropertyType = {
 const PropertyList = () =>{
     const [properties,setProperties]=useState<PropertyType[]>([])
     const getProperties = async()=>{
-        const url = 'http://localhost:8000/api/properties/';
+        const url = '/api/properties/';
+        const tmpProperties= await apiService.get('/api/properties/')
 
-        await fetch(url,{
-            method:'GET',
-
-        })
-        .then(response => response.json())
-        .then((json)=>{
-            console.log('json',json)
-            setProperties(json.data)
-        })
-        .catch((error)=> console.log('error',error))
+        setProperties(tmpProperties.data)
     }
     useEffect(()=>{
-        // apiService.get('hello')
         getProperties()
     },[])
     return(
