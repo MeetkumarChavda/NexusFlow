@@ -2,7 +2,7 @@
 
 import { useEffect,useState } from "react";
 import PropertyListItem from "./PropertyListItem";
-
+import apiService from "@/app/services/apiService";
 export type PropertyType = {
     id:string;
     title:string;
@@ -22,14 +22,12 @@ const PropertyList = () =>{
         .then(response => response.json())
         .then((json)=>{
             console.log('json',json)
-            setProperties(json)
+            setProperties(json.data)
         })
         .catch((error)=> console.log('error',error))
     }
     useEffect(()=>{
-        console.log("Property",properties);
-    },[properties])
-    useEffect(()=>{
+        // apiService.get('hello')
         getProperties()
     },[])
     return(
