@@ -19,7 +19,6 @@ const SignupModal = () =>{
 
     const submitSignup = async() =>{
         const formData={
-            name:'darshil',
             email:email,
             password1:password1,
             password2:password2

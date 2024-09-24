@@ -13,16 +13,17 @@ const initialDateRange = {
     key: 'selection'
 }
 
-
 export type Property ={
     id: string;
     guests: number;
     price_per_night: number;
 }
+
 interface ReservationSidebarProps {
     userId: string | null,
     property: Property
 }
+
 const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
     property,
     userId
@@ -96,7 +97,8 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
     }
 
     useEffect(() => {
-        getReservations()
+        getReservations();
+
         if (dateRange.startDate && dateRange.endDate) {
             const dayCount = differenceInDays(
                 dateRange.endDate,
@@ -122,6 +124,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
     return(
        <aside className="p-6 mt-6 col-span-2 rounded-xl border border-gray-300 shadow-xl">
            <h2 className="mb-5 text-2xl">${property.price_per_night} per night</h2>
+
            <DatePicker
                 value={dateRange}
                 bookedDates={bookedDates}
@@ -130,6 +133,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
             
             <div className="mb-6 p-3 border border-gray-400 rounded-xl">
                 <label className="block mb-2 text-xs font-bold">Guest</label>
+
                 <select 
                     value={guests}
                     onChange={(e) => setGuests(e.target.value)}
@@ -143,17 +147,23 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
 
             <div 
                 onClick={performBooking}
-                className="w-full mb-6 py-6 text-center text-white bg-nexus hover:bg-nexus-dark rounded-xl">Book</div>
-            <div className="mb-4 flex justify-between items-center">
-            <p>${property.price_per_night} * {nights} nights</p>
+                className="w-full mb-6 py-6 text-center text-white bg-nexus hover:bg-nexus-dark rounded-xl"
+            >
+                Book
+            </div>
 
-            <p>${property.price_per_night * nights}</p>
+            <div className="mb-4 flex justify-between items-center">
+                <p>${property.price_per_night} * {nights} nights</p>
+
+                <p>${property.price_per_night * nights}</p>
             </div>
 
             <div className="mb-4 flex justify-between items-center">
                 <p>nexus fee</p>
+
                 <p>${fee}</p>
             </div>
+
             <hr />
 
             <div className="mt-4 flex justify-between items-center font-bold">
@@ -163,4 +173,4 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
        </aside>
     )
 }
-export default ReservationSidebar
+export default ReservationSidebar;
