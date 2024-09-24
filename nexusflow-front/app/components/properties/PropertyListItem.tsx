@@ -1,52 +1,33 @@
-<<<<<<< Updated upstream
-import Image
- from "next/image";
-const PropertyListItem = () =>{
-=======
-import Image from "next/image";
-import { PropertyType } from "./PropertyList";
-import { useRouter } from "next/navigation";
-import FavoriteButton from "../FavoriteButton";
+'use client';
 
-
-interface PropertyProps{
-    property: PropertyType,
-    markFavorite?: (is_favorite: boolean) => void;
+import { useEffect,useState } from "react";
+import PropertyListItem from "./PropertyListItem";
+import apiService from "@/app/services/apiService";
+export type PropertyType = {
+    id:string;
+    title:string;
+    price_per_night:number;
+    image_url:string;
 }
-const PropertyListItem:React.FC<PropertyProps> = ({
-    property,
-    markFavorite
-}) =>{
-    const router = useRouter();
->>>>>>> Stashed changes
 
+const PropertyList = () =>{
+    const [properties,setProperties]=useState<PropertyType[]>([])
+    const getProperties = async()=>{
+        const url = '/api/properties/';
+        const tmpProperties= await apiService.get('/api/properties/')
+
+        setProperties(tmpProperties.data)
+    }
+    useEffect(()=>{
+        getProperties()
+    },[])
     return(
-       <div className="cursor-pointer">
-        <div className="relative overflow-hidden aspect-square rounded-xl">
-            <Image 
-                fill
-                src='/beach.webp'
-                sizes="(max-width:768px) 768px (max-height:1200px) 768px , 768px"
-                alt = 'property image'
-                className="hover:scale-110 object-cover transform h-full w-full"
-            />
-             {markFavorite && (
-                    <FavoriteButton
-                        id={property.id}
-                        is_favorite={property.is_favorite}
-                        markFavorite={(is_favorite) => markFavorite(is_favorite)}
-                    />
-                )}
-        </div>
-        <div className="mt-2">
-            <div className="text-lg font-bold">Property Name</div>
-        </div>
-        <div className="mt-2">
-            <p className="text-sm text-gray-500"><strong>$1000</strong></p>
-        </div>
-        
-       </div>
-    );
+        <>
+            {properties && properties.map((property) => (
+                <PropertyListItem key={property.id} property={property} />
+            ))}
+        </>
+    )
 
 }
-export default PropertyListItem;
+export default PropertyList;

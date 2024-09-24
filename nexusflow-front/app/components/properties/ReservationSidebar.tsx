@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
-const ReservationSidebar = () =>{
-    return(
-       <aside className="p-6 mt-6 col-span-2 rounded-xl border border-gray-300 shadow-xl">
-            <h2 className="mb-5 text-2xl">$200 per night</h2>
-=======
 'use client';
 
 import {useState, useEffect} from 'react';
@@ -133,7 +127,6 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
                 bookedDates={bookedDates}
                 onChange={(value) => _setDateRange(value.selection)}
             />        
->>>>>>> Stashed changes
             
             <div className="mb-6 p-3 border border-gray-400 rounded-xl">
                 <label className="block mb-2 text-xs font-bold">Guest</label>
