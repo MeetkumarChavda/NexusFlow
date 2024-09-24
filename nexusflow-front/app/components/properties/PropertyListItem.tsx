@@ -1,39 +1,33 @@
-import Image from "next/image";
-import { PropertyType } from "./PropertyList";
-import { useRouter } from "next/navigation";
+'use client';
 
-
-interface PropertyProps{
-    property:PropertyType
+import { useEffect,useState } from "react";
+import PropertyListItem from "./PropertyListItem";
+import apiService from "@/app/services/apiService";
+export type PropertyType = {
+    id:string;
+    title:string;
+    price_per_night:number;
+    image_url:string;
 }
-const PropertyListItem:React.FC<PropertyProps> = ({
-    property
-}) =>{
-    const router = useRouter();
 
+const PropertyList = () =>{
+    const [properties,setProperties]=useState<PropertyType[]>([])
+    const getProperties = async()=>{
+        const url = '/api/properties/';
+        const tmpProperties= await apiService.get('/api/properties/')
+
+        setProperties(tmpProperties.data)
+    }
+    useEffect(()=>{
+        getProperties()
+    },[])
     return(
-        <div 
-            className="cursor-pointer"
-            onClick={() => router.push(`/properties/${property.id}`)}
-        >
-        <div className="relative overflow-hidden aspect-square rounded-xl">
-            <Image 
-                fill
-                src={property.image_url}
-                sizes="(max-width:768px) 768px (max-height:1200px) 768px , 768px"
-                alt = 'property image'
-                className="hover:scale-110 object-cover transform h-full w-full"
-            />
-        </div>
-        <div className="mt-2">
-            <div className="text-lg font-bold">{property.title}</div>
-        </div>
-        <div className="mt-2">
-            <p className="text-sm text-gray-500"><strong>${property.price_per_night}</strong></p>
-        </div>
-        
-       </div>
-    );
+        <>
+            {properties && properties.map((property) => (
+                <PropertyListItem key={property.id} property={property} />
+            ))}
+        </>
+    )
 
 }
-export default PropertyListItem;
+export default PropertyList;
