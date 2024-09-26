@@ -15,7 +15,6 @@ const LoginModal = () =>{
     const [errors,setErrors]=useState<string[]>([])
     const submitLogin = async() =>{
         const formData={
-            name:'darshil',
             email:email,
             password:password
         }

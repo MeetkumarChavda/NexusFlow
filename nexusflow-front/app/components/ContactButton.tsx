@@ -27,7 +27,7 @@ const ContactButton: React.FC<ContactButtonProps> = ({
     return (
         <div 
             onClick={startConversation}
-            className="mt-6 py-4 px-6 cursor-pointer bg-nexus text-white rounded-xl hover:bg-airbnb-dark transition"
+            className="mt-6 py-4 px-6 cursor-pointer bg-nexus text-white rounded-xl hover:bg-nexus-dark transition"
         >
             Contact
         </div>

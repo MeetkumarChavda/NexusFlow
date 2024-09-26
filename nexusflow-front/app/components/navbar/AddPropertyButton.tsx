@@ -27,7 +27,7 @@ const AddPropertyButton: React.FC<AddPropertyButoonProps> = ({
             onClick={nexusYourHome}
             className="p-2 text-sm font-semibold rounded-full hover:bg-gray-200 cursor-pointer"
             >
-            Your Home
+            Add Property
         </div>
     )
 

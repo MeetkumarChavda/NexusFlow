@@ -8,7 +8,7 @@ const PropertyDetailPage = async (
    
     const property = await apiService.get(`/api/properties/${params.id}`)
     const userId = await getUserId();
-    console.log("userid",userId);
+    // console.log("userid",userId);
     
     return(
         <main className="max-w-[1500px] mx-auto px-6 pb-6">

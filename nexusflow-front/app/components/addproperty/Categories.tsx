@@ -14,10 +14,10 @@ const Categories: React.FC<CategoriesProps> = ({
            <div className="pt-3 cursor-pointer pb-6 flex items-center space-x-12">
             {/* Individual Categoris */}
            <div 
-            onClick={() => setCategory('Beach')}
+            onClick={() => setCategory('beach')}
             className={`pb-4 flex flex-col items-center space-y-2 border-b-2 border-white ${dateCategory == 'Beach'?'border-gray-800':'border-white'} border-white opacity-60 hover:border-gray-200 hover:opacity-100`}>
             <Image 
-                src='/img_beach_category.jpg'
+                src="/beach.jpg"
                 alt = 'beach category image'
                 width={20}
                 height={20}
@@ -26,10 +26,10 @@ const Categories: React.FC<CategoriesProps> = ({
            </div>
 
            <div 
-            onClick={() => setCategory('Villas')}
+            onClick={() => setCategory('villas')}
             className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dateCategory == 'Villas' ? 'border-gray-800':'border-white'} border-white opacity-60 hover:border-gray-200 hover:opacity-100`}>
             <Image 
-                src='/img_beach_category.jpg'
+                src="/villas.jpg"
                 alt = 'beach category image'
                 width={20}
                 height={20}
@@ -38,10 +38,10 @@ const Categories: React.FC<CategoriesProps> = ({
            </div>
 
            <div 
-           onClick={() => setCategory('Cabins')}
+           onClick={() => setCategory('cabins')}
            className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dateCategory == 'Cabins' ? 'border-gray-800':'border-white'} border-white opacity-60 hover:border-gray-200 hover:opacity-100`}>            
             <Image 
-                src='/img_beach_category.jpg'
+                src="/cabins.jpg"
                 alt = 'beach category image'
                 width={20}
                 height={20}
@@ -50,10 +50,10 @@ const Categories: React.FC<CategoriesProps> = ({
            </div>
 
            <div 
-            onClick={() => setCategory('Tiny homes')}
+            onClick={() => setCategory('tiny_homes')}
             className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dateCategory == 'Tiny homes' ? 'border-gray-800':'border-white'} border-white opacity-60 hover:border-gray-200 hover:opacity-100`}>
             <Image 
-                src='/img_beach_category.jpg'
+                src="/tiny_home.jpg"
                 alt = 'beach category image'
                 width={20}
                 height={20}

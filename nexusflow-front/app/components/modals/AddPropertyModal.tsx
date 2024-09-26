@@ -43,14 +43,6 @@ const  AddPropertyModal = () =>{
     // Submit 
     const submitForm = async () => {
         
-
-        // console.log(dataCategory,dataTitle,dataDescription,dataPrice,dataCountry,dataImage)
-        // console.log(dataCategory &&
-        //     dataTitle &&
-        //     dataDescription &&
-        //     dataPrice &&
-        //     dataCountry &&
-        //     dataImage)
         if (
             dataCategory &&
             dataTitle &&
@@ -59,7 +51,6 @@ const  AddPropertyModal = () =>{
             dataCountry &&
             dataImage
         ) {
-            console.log('coming inside')
             const formData = new FormData();
             formData.append('category', dataCategory);
             formData.append('title', dataTitle);
@@ -71,8 +62,7 @@ const  AddPropertyModal = () =>{
             formData.append('country', dataCountry.label);
             formData.append('country_code', dataCountry.value);
             formData.append('image', dataImage);
-            // // Added By Darshil For temporary use
-            // console.log('form-data by darshil: ')
+           
             const response = await apiService.post('/api/properties/create/', formData);
             
             if (response.success) {
