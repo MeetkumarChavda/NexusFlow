@@ -20,15 +20,13 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     messages,
     conversation
 }) => {
-
-    const messagesDiv = useRef(null);
+    const messagesDiv = useRef<HTMLDivElement>(null);
     const [newMessage, setNewMessage] = useState('');
     const myUser = conversation.users?.find((user) => user.id == userId)
     const otherUser = conversation.users?.find((user) => user.id != userId)
-
     const [realtimeMessages, setRealtimeMessages] = useState<MessageType[]>([]);
 
-    const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`ws://127.0.0.1:8000/ws/${conversation.id}/?token=${token}`, {
+    const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`${process.env.NEXT_PUBLIC_WS_HOST}/ws/${conversation.id}/?token=${token}`, {
         share: false,
         shouldReconnect: () => true,
       },
@@ -39,7 +37,6 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     }, [readyState]);
 
     useEffect(() => {
-
         if (lastJsonMessage && typeof lastJsonMessage === 'object' && 'name' in lastJsonMessage && 'body' in lastJsonMessage) {
             const message: MessageType = {
                 id: '',
@@ -56,9 +53,9 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
         scrollToBottom();
     }, [lastJsonMessage]);
 
-
     const sendMessage = async () => {
         console.log('sendMessage'),
+
         sendJsonMessage({
             event: 'chat_message',
             data: {
@@ -68,17 +65,20 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
                 conversation_id: conversation.id
             }
         });
+
         setNewMessage('');
+
         setTimeout(() => {
             scrollToBottom()
         }, 50);
     }
-     const scrollToBottom = () => {
+
+    const scrollToBottom = () => {
         if (messagesDiv.current) {
-            messagesDiv.current.scrollTop = messagesDiv.current.scrollheight;
+            messagesDiv.current.scrollTop = messagesDiv.current.scrollHeight;
         }
     }
-    
+
     return (
         <>
             <div 
