@@ -1,10 +1,12 @@
 'use client';
+
 import { useRouter } from "next/navigation";
 import { ConversationType } from "@/app/inbox/page";
 interface ConversationProps {
     conversation: ConversationType;
     userId: string;
 }
+
 const Conversation: React.FC<ConversationProps> = ({
     conversation,
     userId
