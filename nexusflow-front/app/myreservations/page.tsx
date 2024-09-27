@@ -28,7 +28,7 @@ return (
                                 <p className="mb-2"><strong>Total price:</strong> ${reservation.total_price}</p>
                                 <Link 
                                     href={`/properties/${reservation.property.id}`}
-                                    className="mt-6 inline-block cursor-pointer py-4 px-6 bg-airbnb text-white rounded-xl"
+                                    className="mt-6 inline-block cursor-pointer py-4 px-6 bg-nexus text-white rounded-xl"
                                 >
                                     Go to property
                                 </Link>

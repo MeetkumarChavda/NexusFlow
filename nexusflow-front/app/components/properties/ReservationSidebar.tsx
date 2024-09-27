@@ -6,6 +6,7 @@ import { differenceInDays, eachDayOfInterval, format} from 'date-fns';
 import DatePicker from '../forms/Calendar';
 import apiService from '@/app/services/apiService';
 import useLoginModal from '@/app/hooks/useLoginModal';
+import { useRouter } from "next/navigation";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -28,6 +29,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
     property,
     userId
 }) => {
+    const router=useRouter();
     const loginModal = useLoginModal();
 
     const [fee, setFee] = useState<number>(0);
@@ -54,9 +56,10 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
                 const response = await apiService.post(`/api/properties/${property.id}/book/`, formData);
 
                 if (response.success) {
-                    console.log('Bookin successful')
+                    alert("Booked Succussfully! Thank You")
+                    router.refresh();
                 } else {
-                    console.log('Something went wrong...');
+                    alert('Something went wrong...');
                 }
             }
         } else {

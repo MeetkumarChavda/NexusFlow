@@ -29,6 +29,8 @@ const SignupModal = () =>{
 
             signupModal.close()
             router.push('/')
+            alert('Sign up Successfully')
+            router.refresh();
         }else{
             const tmpErrors : string[] = Object.values(response).map((error:any)=>{
                 return error;

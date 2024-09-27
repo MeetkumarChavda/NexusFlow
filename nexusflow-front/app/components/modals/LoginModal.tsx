@@ -24,6 +24,8 @@ const LoginModal = () =>{
 
             loginModal.close()
             router.push('/')
+            alert('logged in Successfully')
+            router.refresh();
         }else{
             setErrors(response.non_field_errors)
         }
