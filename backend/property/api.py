@@ -10,8 +10,22 @@ from useraccount.models import User
 @authentication_classes([])
 @permission_classes([])
 def properties_list(request):
-        #
-    # Auth
+    """
+    Retrieve a list of properties based on various filters.
+
+    This endpoint returns a list of properties, optionally filtered by
+    criteria such as landlord, country, category, number of guests,
+    bedrooms, and bathrooms. It also checks for favorite properties
+    for the authenticated user if a token is provided.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing query parameters.
+
+    Returns:
+        JsonResponse: A JSON response containing the list of properties and user favorites.
+    """
+    # Auth: Attempt to authenticate user from the token in the request header
+
     try:
         token = request.META['HTTP_AUTHORIZATION'].split('Bearer ')[1]
         token = AccessToken(token)
@@ -24,7 +38,7 @@ def properties_list(request):
     favorites = []
     properties = Property.objects.all()
 
-    #Filter 
+    # Extract filters from query parameters
     is_favorites = request.GET.get('is_favorites','')
     landlord_id=request.GET.get('landlord_id','')
     country = request.GET.get('country', '')
@@ -34,8 +48,9 @@ def properties_list(request):
     bedrooms = request.GET.get('numBedrooms', '')
     guests = request.GET.get('numGuests', '')
     bathrooms = request.GET.get('numBathrooms', '')
-    print('country', country)
+    # print('country', country)
     
+    # Handle date filters to exclude booked properties
     if checkin_date and checkout_date:
         exact_matches = Reservation.objects.filter(start_date=checkin_date) | Reservation.objects.filter(end_date=checkout_date)
         overlap_matches = Reservation.objects.filter(start_date__lte=checkout_date, end_date__gte=checkin_date)
@@ -45,7 +60,7 @@ def properties_list(request):
         
         properties = properties.exclude(id__in=all_matches)
     
-    
+    # Apply additional filters based on user input
     if landlord_id:
         properties =properties.filter(landlord_id=landlord_id)
         
@@ -67,8 +82,7 @@ def properties_list(request):
     if category and category != 'undefined':
         properties = properties.filter(category=category)
     #
-    # Favorites
-        
+    # Retrieve user's favorite properties
     if user:
         for property in properties:
             if user in property.favorited.all():
@@ -87,12 +101,35 @@ def properties_list(request):
 @authentication_classes([])
 @permission_classes([])
 def properties_detail(request, pk):
+    """
+    Retrieve the details of a specific property.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        pk (int): The primary key of the property to retrieve.
+
+    Returns:
+        JsonResponse: A JSON response containing the property details.
+    """
     property = Property.objects.get(pk=pk)
     serializer = PropertiesDetailSerializer(property, many=False)
     return JsonResponse(serializer.data)
     
 @api_view(['POST', 'FILES'])
 def create_property(request):
+    
+    """
+    Create a new property listing.
+
+    This endpoint accepts property details from a form and saves the
+    property to the database with the current user as the landlord.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing form data.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure.
+    """
     form = PropertyForm(request.POST, request.FILES)
     if form.is_valid():
         property = form.save(commit=False)
@@ -106,6 +143,20 @@ def create_property(request):
 
 @api_view(['POST'])
 def book_property(request, pk):
+    """
+    Book a property for a specified date range.
+
+    This endpoint creates a reservation for the specified property
+    and records the booking details.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing booking details.
+        pk (int): The primary key of the property to book.
+
+    Returns:
+        JsonResponse: A JSON response indicating success or failure of the booking.
+    """
+    
     try:
         start_date = request.POST.get('start_date', '')
         end_date = request.POST.get('end_date', '')
@@ -131,6 +182,16 @@ def book_property(request, pk):
 @authentication_classes([])
 @permission_classes([])
 def property_reservations(request, pk):
+    """
+    Retrieve reservations for a specific property.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        pk (int): The primary key of the property.
+
+    Returns:
+        JsonResponse: A JSON response containing the list of reservations for the property.
+    """
     property = Property.objects.get(pk=pk)
     reservations = property.reservations.all()
 
