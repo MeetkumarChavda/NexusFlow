@@ -11,6 +11,11 @@ NexusFlow is a web application designed to manage property listings, reservation
 - WebSocket for real-time communication in chat features
 
 ---
+## Demo
+
+https://github.com/user-attachments/assets/d9d21371-fa1c-4b84-ab77-61669ad5d697
+
+---
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
